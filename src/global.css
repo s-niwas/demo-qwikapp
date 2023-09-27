@@ -5,19 +5,37 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --qwik-dark-blue: #006ce9;
   --qwik-light-blue: #18b6f6;
   --qwik-light-purple: #ac7ff4;
   --qwik-dark-purple: #713fc2;
-  --qwik-dirty-black: #1d2033;
+  --qwik-dirty-black: #fff;
 
   --text-color: #ffffff;
-  --main-background: #1c224a;
+  --main-background: #fff;
   --header-background: var(--main-background);
   --footer-background: #0d0c25;
 }
+
+/* 
+:root {
+  --qwik-dark-blue:  #ffffff /*#006ce9;/
+  --qwik-light-blue: #18b6f6;
+  --qwik-light-purple: #ac7ff4;
+  --qwik-dark-purple: #713fc2;
+  --qwik-dirty-black: #ffffff /*1d2033;/
+
+  --text-color: #ffffff;
+  --main-background:  #ffffff /*#1c224a;/
+  --header-background: var(--main-background);
+  --footer-background: #0d0c25;
+} */
+
 
 /* SHELL ---------------------------------------- */
 html {
@@ -98,7 +116,6 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
   color: var(--qwik-light-blue);
 }
 
