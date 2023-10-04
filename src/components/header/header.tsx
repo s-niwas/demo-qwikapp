@@ -1,18 +1,70 @@
-import { component$ } from "@builder.io/qwik";
+import {
+  component$,
+  useVisibleTask$,
+  useOnWindow,
+  $,
+  useSignal,
+} from "@builder.io/qwik";
 import "./header.module.css";
 
-export default component$((props: { logo: string }) => {
+export default component$((props: { logo: string; logo_white: string }) => {
+  const logo = props.logo;
+  const logo_white = props.logo_white;
+  const isSticky = useSignal(false);
+
+  useVisibleTask$(() => {
+    const navbarToggler = document.querySelector("#navbarToggler");
+    const navbarCollapse = document.querySelector("#navbarCollapse");
+
+    navbarToggler?.addEventListener("click", () => {
+      navbarToggler?.classList.toggle("navbarTogglerActive");
+      navbarCollapse?.classList.toggle("hidden");
+    });
+
+    //===== close navbar-collapse when a  clicked
+    document
+      .querySelectorAll("#navbarCollapse ul li:not(.submenu-item) a")
+      .forEach((e) =>
+        e.addEventListener("click", () => {
+          navbarToggler?.classList.remove("navbarTogglerActive");
+          navbarCollapse?.classList.add("hidden");
+        })
+      );
+  });
+
+  useOnWindow(
+    "scroll",
+    $(() => {
+      const ud_header = document.querySelector(".ud-header");
+      const sticky = (ud_header as HTMLElement).offsetTop;
+
+      if (ud_header) {
+        if (window.scrollY > sticky) {
+          ud_header.classList.add("sticky");
+          isSticky.value = true;
+        } else {
+          isSticky.value = false;
+          ud_header.classList.remove("sticky");
+        }
+      }
+    })
+  );
+
   return (
     <div class="h-[60px]">
       <div class="ud-header absolute top-0 left-0 z-40 flex w-full  items-center bg-[#3056D3]">
         <div class="container mx-auto">
-          <div class="relative flex items-center justify-between">
+          <div class="relative flex w-full items-center justify-between">
             <div class="w-60 max-w-full px-4">
               <a href="/" class="navbar-logo block w-full py-5">
-                <img src={props.logo} width={157} height={55} />
+                <img
+                  src={isSticky.value ? logo : logo_white}
+                  width={157}
+                  height={55}
+                />
               </a>
             </div>
-            <div class="flex w-full items-center justify-between px-4">
+            <div class="flex  items-center  ">
               <div>
                 <button
                   id="navbarToggler"
@@ -30,7 +82,7 @@ export default component$((props: { logo: string }) => {
                     <li class="group relative">
                       <a
                         href="/"
-                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70"
+                        class="ud-menu-scroll  flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70"
                       >
                         Home
                       </a>
@@ -38,7 +90,7 @@ export default component$((props: { logo: string }) => {
                     <li class="group relative">
                       <a
                         href="/"
-                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                        class="ud-menu-scroll  flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
                       >
                         About
                       </a>
@@ -46,7 +98,7 @@ export default component$((props: { logo: string }) => {
                     <li class="group relative">
                       <a
                         href="/"
-                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                        class="ud-menu-scroll  flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
                       >
                         Pricing
                       </a>
@@ -54,22 +106,23 @@ export default component$((props: { logo: string }) => {
                     <li class="group relative">
                       <a
                         href="/"
-                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
-                      >
-                        Team
-                      </a>
-                    </li>
-                    <li class="group relative">
-                      <a
-                        href="/"
-                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                        class="ud-menu-scroll  flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
                       >
                         Contact
                       </a>
                     </li>
-                    <li class="submenu-item group relative">
+                    {/* <li class="group relative">
                       <a
                         href="/"
+                        class="ud-menu-scroll mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                      >
+                        Team
+                      </a>
+                    </li> */}
+
+                    {/* <li class="submenu-item group relative">
+                      <a
+                        
                         class="relative mx-8 flex py-2 text-base text-dark after:absolute after:right-1 after:top-1/2 after:mt-[-2px] after:h-2 after:w-2 after:-translate-y-1/2 after:rotate-45 after:border-b-2 after:border-r-2 after:border-current group-hover:text-primary lg:mr-0 lg:ml-8 lg:inline-flex lg:py-6 lg:pl-0 lg:pr-4 lg:text-white lg:after:right-0 lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
                       >
                         Pages
@@ -124,10 +177,12 @@ export default component$((props: { logo: string }) => {
                           404 Page
                         </a>
                       </div>
-                    </li>
+                    </li> */}
                   </ul>
                 </nav>
               </div>
+            </div>
+            <div class="flex  items-center  pr-4">
               <div class="hidden justify-end pr-16 sm:flex lg:pr-0">
                 <a
                   href="/"

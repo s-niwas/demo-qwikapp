@@ -2,26 +2,29 @@ import { component$ } from "@builder.io/qwik";
 
 export default component$(
   (props: { title: string; address: string; emails: string }) => {
+    const { title, address, emails } = props;
     return (
-      //   <div class="absolute top-0 left-0 z-[-1] h-1/2 w-full bg-[#f3f4fe] lg:h-[45%] xl:h-1/2"></div>
-      <div class=" bg-[#f3f4fe] p-10 relative">
-        <div class="absolute top-0 left-0 z-[-1] h-1/2 w-full bg-[#f3f4fe] lg:h-[45%] xl:h-1/2"></div>
+      <section
+        id="contact"
+        class="ud-contact relative py-20 md:py-[120px] bg-[#f3f4fe]"
+      >
+        {/* <div class="absolute top-0 left-0 z-[-1] h-1/2 w-full bg-[#f3f4fe] lg:h-[45%] xl:h-1/2"></div> */}
         <div class="container px-4 mx-auto">
-          <div class="-mx-4  flex flex-wrap items-center">
-            <div class="w-full px-4 lg:w-7/12 xl:w-8/12 ">
-              <div class="ud-contact-content-wrapper ">
-                <div class="ud-contact-title mb-12 lg:mb-[150px] ">
-                  <span class="mb-5 text-base font-semibold text-[#090E34]">
+          <div class="-mx-4 flex flex-wrap items-center">
+            <div class="w-full px-4 lg:w-7/12 xl:w-8/12">
+              <div class="ud-contact-content-wrapper">
+                <div class="ud-contact-title mb-12 lg:mb-[150px]">
+                  <span class="font-headingFont mb-5 text-base font-semibold text-dark">
                     CONTACT US
                   </span>
                   <h2
-                    class="text-[35px]  text-black font-semibold"
-                    dangerouslySetInnerHTML={props.title}
+                    class="text-[35px] text-black font-semibold"
+                    dangerouslySetInnerHTML={title}
                   ></h2>
                 </div>
                 <div class="mb-12 flex flex-wrap justify-between lg:mb-0">
                   <div class="mb-8 flex w-[330px] max-w-full">
-                    <div class="mr-6 text-[32px] text-[#3056D3]">
+                    <div class="mr-6 text-[32px] text-primary">
                       <svg
                         width="29"
                         height="35"
@@ -33,17 +36,17 @@ export default component$(
                       </svg>
                     </div>
                     <div>
-                      <h5 class="mb-6 text-lg text-black font-semibold">
+                      <h5 class="mb-6 text-lg font-semibold text-black">
                         Our Location
                       </h5>
                       <p
-                        class="text-base text-[#637381]"
-                        dangerouslySetInnerHTML={props.address}
+                        class="text-base text-body-color"
+                        dangerouslySetInnerHTML={address}
                       ></p>
                     </div>
                   </div>
                   <div class="mb-8 flex w-[330px] max-w-full">
-                    <div class="mr-6 text-[32px] text-[#3056D3]">
+                    <div class="mr-6 text-[32px] text-primary">
                       <svg
                         width="34"
                         height="25"
@@ -54,12 +57,12 @@ export default component$(
                       </svg>
                     </div>
                     <div>
-                      <h5 class="mb-6 text-lg text-black font-semibold">
+                      <h5 class="mb-6 text-lg font-semibold text-black">
                         How Can We Help?
                       </h5>
                       <p
-                        class="text-base text-[#637381]"
-                        dangerouslySetInnerHTML={props.emails}
+                        class="text-base text-body-color"
+                        dangerouslySetInnerHTML={emails}
                       ></p>
                     </div>
                   </div>
@@ -68,62 +71,60 @@ export default component$(
             </div>
             <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
               <div
-                class="wow fadeInUp rounded-lg bg-white  py-10 px-8 shadow-testimonial sm:py-12 sm:px-10 md:p-[60px] lg:p-10 lg:py-12 lg:px-10 2xl:p-[60px]"
-                data-wow-delay=".2s
-  "
+                class="wow fadeInUp rounded-lg bg-white py-10 px-8 shadow-testimonial sm:py-12 sm:px-10 md:p-[60px] lg:p-10 lg:py-12 lg:px-10 2xl:p-[60px]"
+                data-wow-delay=".2s"
               >
-                <h3 class="mb-8 text-2xl text-black font-semibold md:text-[26px]">
+                <h3 class="mb-8 text-2xl font-semibold md:text-[26px] text-black">
                   Send us a Message
                 </h3>
                 <form>
                   <div class="mb-6">
-                    <label for="fullName" class="block text-xs text-[#090E34]">
+                    <label for="fullName" class="block text-xs text-dark">
                       Full Name*
                     </label>
                     <input
                       type="text"
                       name="fullName"
                       placeholder="Adam Gelius"
-                      class="w-full border-0 text-black border-b border-[#f1f1f1] py-4 focus:border-[#3056D3] focus:outline-none"
+                      class="w-full border-0 border-b border-[#f1f1f1] py-4 focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div class="mb-6">
-                    <label for="email" class="block text-xs text-[#090E34]">
+                    <label for="email" class="block text-xs text-dark">
                       Email*
                     </label>
                     <input
                       type="email"
                       name="email"
                       placeholder="example@yourmail.com"
-                      class="w-full text-black border-0 border-b border-[#f1f1f1] py-4 focus:border-[#3056D3] focus:outline-none"
+                      class="w-full border-0 border-b border-[#f1f1f1] py-4 focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div class="mb-6">
-                    <label for="phone" class="block text-xs text-[#090E34]">
+                    <label for="phone" class="block text-xs text-dark">
                       Phone*
                     </label>
                     <input
                       type="text"
                       name="phone"
-                      placeholder="+91 987 654 3210 "
-                      class="w-full border-0 text-black border-b border-[#f1f1f1] py-4 focus:border-[#3056D3] focus:outline-none"
+                      placeholder="+885 1254 5211 552"
+                      class="w-full border-0 border-b border-[#f1f1f1] py-4 focus:border-primary focus:outline-none"
                     />
                   </div>
                   <div class="mb-6">
-                    <label for="message" class="block text-xs text-[#090E34]">
+                    <label for="message" class="block text-xs text-dark">
                       Message*
                     </label>
                     <textarea
                       name="message"
-                      // rows="1"
                       placeholder="type your message here"
-                      class="w-full text-black resize-none border-0 border-b border-[#f1f1f1] py-4 focus:border-[#3056D3] focus:outline-none"
+                      class="w-full resize-none border-0 border-b border-[#f1f1f1] py-4 focus:border-primary focus:outline-none"
                     ></textarea>
                   </div>
                   <div class="mb-0">
                     <button
                       type="submit"
-                      class="inline-flex items-center justify-center rounded bg-[#3056D3] py-4 px-6 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-[#090E34]"
+                      class="inline-flex items-center justify-center rounded bg-primary py-4 px-6 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-dark"
                     >
                       Send Message
                     </button>
@@ -133,7 +134,7 @@ export default component$(
             </div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 );
