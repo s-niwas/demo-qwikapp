@@ -158,6 +158,10 @@ export const CUSTOM_COMPONENTS: RegisteredComponent[] = [
         name: "logo",
         type: "file",
       },
+      {
+        name: "logo_white",
+        type: "file",
+      },
     ],
   },
   {
